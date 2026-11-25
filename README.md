@@ -27,10 +27,10 @@
 bash example/run-digest.sh
 ```
 
-接进 `lib/gate.sh` 的写法：
+接进你已有的夜间门禁脚本（这里叫 `gate.sh`，需要自己提供，接口就两个函数：`window_ok <stage>` 判时间窗、`gate_check <stage>` 判机器闲不闲）：
 
 ```bash
-source lib/gate.sh; source forge/<D>/stage-ckpt/ckpt.sh
+source ckpt.sh
 window_ok "$S" || exit 0
 gate_check "$S" || exit 0
 ckpt_boot "$S" fetch merge dedupe    # 有账就沿用旧账，没账才新建
@@ -61,7 +61,7 @@ python -m unittest discover -s . -t .
 
 ## 上游
 
-`OthmanAdi/planning-with-files`（MIT）的「落盘计划 + 每轮重注入 + 确定性完成门禁」三件套，专治 compaction 之后断片。这里借了前两件，第三件换成可执行的证据校验。逐条见 `upstream.md`。本仓的 `lib/gate.sh` 是同项目内文件，不算上游。
+[OthmanAdi/planning-with-files](https://github.com/OthmanAdi/planning-with-files)（MIT）的「落盘计划 + 每轮重注入 + 确定性完成门禁」三件套，专治 compaction 之后断片。这里借了前两件，第三件换成可执行的证据校验。逐条见 `upstream.md`。`gate.sh` 是同项目的门禁文件，不随本仓，接口只有 `window_ok` / `gate_check` 两个函数。
 
 ## 许可
 
